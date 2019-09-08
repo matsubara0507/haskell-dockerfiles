@@ -1,5 +1,6 @@
-FROM fpco/ubuntu-with-libgmp
+FROM ubuntu:18.04
 RUN apt-get update && apt-get install -y \
+    libgmp10 \
     ca-certificates \
     git \
  && apt-get clean \
