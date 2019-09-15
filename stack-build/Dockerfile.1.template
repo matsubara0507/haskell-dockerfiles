@@ -1,6 +1,7 @@
 RUN apt-get update && apt-get install -y \
     curl \
     gcc \
+    g++ \
     git \
     gnupg \
     libc6-dev \
