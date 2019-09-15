@@ -8,9 +8,10 @@ jobs:
     - stage: build docker image
       if: branch = master AND type = push
       before_script:
-      - ./.travis/setup-git.bash
+      - git config user.name "${GIT_NAME}"
+      - git config user.email "${GIT_EMAIL}"
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
       - ./update-image.sh stack-build
       after_script:
-      - git push origin master
+      - bash .travis/deploy.bash master
