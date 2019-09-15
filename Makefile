@@ -1,5 +1,5 @@
 DOCKER_CMD   = docker run --rm
-IMAGE        = matsubara0507/dockwright
+IMAGE        = matsubara0507/dockwright:1.1.0
 BUILD_CMD    = dockwright .dockwright.yaml
 
 new-tags:
