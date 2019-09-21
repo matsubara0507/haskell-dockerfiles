@@ -6,7 +6,7 @@ services:
 jobs:
   include:
     - stage: build docker image
-      if: branch = master AND type = push
+      if: branch = master AND (type = push OR type = cron)
       before_script:
       - git config user.name "${GIT_NAME}"
       - git config user.email "${GIT_EMAIL}"
