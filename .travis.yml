@@ -6,12 +6,22 @@ services:
 jobs:
   include:
     - stage: build docker image
-      if: branch = master AND (type = push OR type = cron)
+      if: branch = master AND ((type = push AND commit_message !~ /(force)/) OR type = cron)
       before_script:
       - git config user.name "${GIT_NAME}"
       - git config user.email "${GIT_EMAIL}"
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       script:
       - ./update-image.sh stack-build
+      after_script:
+      - bash .travis/deploy.bash master
+    - stage: build docker image
+      if: branch = master AND type = push AND commit_message =~ /(force)/
+      before_script:
+      - git config user.name "${GIT_NAME}"
+      - git config user.email "${GIT_EMAIL}"
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      script:
+      - ./force-update-image.sh stack-build
       after_script:
       - bash .travis/deploy.bash master
