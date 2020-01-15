@@ -7,6 +7,10 @@ template:
   before_env: Dockerfile.1.template
   after_env: Dockerfile.2.template
 env:
+  LANG:
+    value: C.UTF-8
+  LC_ALL:
+    value: C.UTF-8
   stack_version:
     github:
       repo: commercialhaskell/stack
