@@ -1,0 +1,7 @@
+image: matsubara0507/ubuntu-for-haskell
+tags:
+- type: value
+  keys:
+  - git
+  always: true
+

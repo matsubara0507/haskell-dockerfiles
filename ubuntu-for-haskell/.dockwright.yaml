@@ -1,0 +1,8 @@
+image: matsubara0507/ubuntu-for-haskell
+tags:
+- type: value
+  keys:
+  - latest
+  - "18.04"
+  always: true
+
