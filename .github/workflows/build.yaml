@@ -1,0 +1,55 @@
+name: Build docker images
+
+on:
+  pull_request: null
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    name: Build docker images for ${{ matrix.dir }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir:
+        - stack-build
+        - ubuntu-for-haskell
+        - ubuntu-for-haskell-with-git
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Prepare
+      id: prep
+      run: |
+        make -s new-tags dir=${{ matrix.dir }} | xargs -ITAG TAGS="$TAGS,ghcr.io/TAG"
+        TAGS=${TAGS#,}
+        echo ::set-output name=tags::${TAGS}
+
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@master
+      with:
+        platforms: all
+
+    - name: Setup Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@master
+      with:
+        version: latest
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: matsubara0507
+        password: ${{ secrets.CR_PAT }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: ${{ matrix.dir }}
+        builder: ${{ steps.buildx.outputs.name }}
+        tags: ${{ steps.prep.outputs.tags }}
+        push: ${{ github.event_name != 'pull_request' }}
