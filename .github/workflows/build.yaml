@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build docker images for ${{ matrix.dir }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
@@ -24,9 +24,8 @@ jobs:
     - name: Prepare
       id: prep
       run: |
-        make -s new-tags dir=${{ matrix.dir }} | xargs -ITAG TAGS="$TAGS,ghcr.io/TAG"
-        TAGS=${TAGS#,}
-        echo ::set-output name=tags::${TAGS}
+        TAGS=$(make -s new-tags dir=${{ matrix.dir }} | xargs -ITAG printf ",ghcr.io/TAG")
+        echo ::set-output name=tags::${TAGS#,}
 
     - name: Setup QEMU
       uses: docker/setup-qemu-action@master
