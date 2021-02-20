@@ -1,0 +1,30 @@
+name: Update Dockerfile
+
+on:
+  schedule:
+  - cron: '0 0 * * *'
+
+jobs:
+  update:
+    name: Update Dockerfile for ${{ matrix.dir }}
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        dir:
+        - stack-build
+  
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build Dockerfile
+      run: make dockerfile dir=${{ matrix.dir }}
+
+    - name: Push changes
+      run: |
+        git config --local user.email "bot@example.com"
+        git config --local user.name "Bot"
+        git status
+        git add -A
+        git diff --staged --quiet || git commit -m "[skip ci] Update Dockerfile for ${{ matrix.dir }}"
+        git push origin master

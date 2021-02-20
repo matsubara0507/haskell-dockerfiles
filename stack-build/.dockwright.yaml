@@ -20,11 +20,5 @@ tags:
 - type: value
   keys:
   - latest
+  - "18.04"
   always: true
-- type: refer
-  ref: https://www.stackage.org/download/snapshots.json
-  keys:
-  - nightly
-  - lts
-  - lts-14
-  - lts-13
