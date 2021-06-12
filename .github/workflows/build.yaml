@@ -43,7 +43,7 @@ jobs:
       with:
         registry: ghcr.io
         username: matsubara0507
-        password: ${{ secrets.GITHUB_SECRET }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
