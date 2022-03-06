@@ -3,6 +3,6 @@ tags:
 - type: value
   keys:
   - latest
-  - "18.04"
+  - "20.04"
   always: true
 
