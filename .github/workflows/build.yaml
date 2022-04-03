@@ -17,6 +17,7 @@ jobs:
         - stack-build
         - ubuntu-for-haskell
         - ubuntu-for-haskell-with-git
+        - ubuntu-for-haskell-with-docker
 
     steps:
     - uses: actions/checkout@v2
