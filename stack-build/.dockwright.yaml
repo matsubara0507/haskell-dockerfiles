@@ -2,7 +2,7 @@ image: matsubara0507/stack-build
 output: .
 base:
   repo: ubuntu
-  tag: "20.04"
+  tag: "22.04"
 template:
   before_env: Dockerfile.1.template
   after_env: Dockerfile.2.template
@@ -20,5 +20,5 @@ tags:
 - type: value
   keys:
   - latest
-  - "20.04"
+  - "22.04"
   always: true
