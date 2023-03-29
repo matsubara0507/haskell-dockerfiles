@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 RUN apt-get update \
  && apt-get install -y curl gcc g++ git gnupg libc6-dev libffi-dev libgmp-dev libtinfo-dev make netbase xz-utils zlib1g-dev \
  && apt-get clean \
