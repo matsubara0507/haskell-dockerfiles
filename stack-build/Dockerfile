@@ -5,6 +5,6 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 ENV LANG="C.UTF-8" \
     LC_ALL="C.UTF-8" \
-    STACK_VERSION="2.7.5"
+    STACK_VERSION="2.9.3"
 RUN curl -sSL https://get.haskellstack.org/ | sh \
  && stack upgrade --binary-version=${STACK_VERSION}
